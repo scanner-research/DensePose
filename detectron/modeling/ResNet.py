@@ -10,10 +10,10 @@
 See: https://arxiv.org/abs/1512.03385, https://arxiv.org/abs/1611.05431.
 """
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 from detectron.core.config import cfg
 from detectron.utils.net import get_group_gn

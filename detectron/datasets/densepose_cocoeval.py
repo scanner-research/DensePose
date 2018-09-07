@@ -122,7 +122,7 @@ class denseposeCOCOeval:
 
         arrays = {}
         f = h5py.File( prefix + 'Pdist_matrix.mat')
-        for k, v in f.items():
+        for k, v in list(f.items()):
             arrays[k] = np.array(v)
         self.Pdist_matrix = arrays['Pdist_matrix']
         self.Part_ids = np.array(  SMPL_subdiv['Part_ID_subdiv'].squeeze())
@@ -149,7 +149,7 @@ class denseposeCOCOeval:
         def _getIgnoreRegion(iid, coco):
             img = coco.imgs[iid]
 
-            if not 'ignore_regions_x' in img.keys():
+            if not 'ignore_regions_x' in list(img.keys()):
                 return None
 
             if len(img['ignore_regions_x']) == 0:
@@ -158,7 +158,7 @@ class denseposeCOCOeval:
             rgns_merged = []
             for region_x, region_y in zip(img['ignore_regions_x'], img['ignore_regions_y']):
                 rgns = [iter(region_x), iter(region_y)]
-                rgns_merged.append(list(it.next() for it in itertools.cycle(rgns)))
+                rgns_merged.append(list(next(it) for it in itertools.cycle(rgns)))
             rles = maskUtils.frPyObjects(rgns_merged, img['height'], img['width'])
             rle = maskUtils.merge(rles)
             return maskUtils.decode(rle)
@@ -180,7 +180,7 @@ class denseposeCOCOeval:
             if crop_iregion.sum() == 0:
                 return True
 
-            if not 'uv' in dt.keys(): # filtering boxes
+            if not 'uv' in list(dt.keys()): # filtering boxes
                 return crop_iregion.sum()/bb[2]/bb[3] < self.ignoreThrBB
 
             # filtering UVs
@@ -225,7 +225,7 @@ class denseposeCOCOeval:
 
         for gt in gts:
             iid = gt['image_id']
-            if not iid in self._igrgns.keys():
+            if not iid in list(self._igrgns.keys()):
                 self._igrgns[iid] = _getIgnoreRegion(iid, self.cocoGt)
             if _checkIgnore(gt, self._igrgns[iid]):
                 self._gts[iid, gt['category_id']].append(gt)
@@ -247,8 +247,8 @@ class denseposeCOCOeval:
         # add backward compatibility if useSegm is specified in params
         if not p.useSegm is None:
             p.iouType = 'segm' if p.useSegm == 1 else 'bbox'
-            print('useSegm (deprecated) is not None. Running {} evaluation'.format(p.iouType))
-        print('Evaluate annotation type *{}*'.format(p.iouType))
+            print(('useSegm (deprecated) is not None. Running {} evaluation'.format(p.iouType)))
+        print(('Evaluate annotation type *{}*'.format(p.iouType)))
         p.imgIds = list(np.unique(p.imgIds))
         if p.useCats:
             p.catIds = list(np.unique(p.catIds))
@@ -279,7 +279,7 @@ class denseposeCOCOeval:
              ]
         self._paramsEval = copy.deepcopy(self.params)
         toc = time.time()
-        print('DONE (t={:0.2f}s).'.format(toc-tic))
+        print(('DONE (t={:0.2f}s).'.format(toc-tic)))
 
     def computeIoU(self, imgId, catId):
         p = self.params
@@ -560,7 +560,7 @@ class denseposeCOCOeval:
         recall      = -np.ones((T,K,A,M))
 
         # create dictionary for future indexing
-        print('Categories:', p.catIds)
+        print(('Categories:', p.catIds))
         _pe = self._paramsEval
         catIds = _pe.catIds if _pe.useCats else [-1]
         setK = set(catIds)
@@ -570,7 +570,7 @@ class denseposeCOCOeval:
         # get inds to evaluate
         k_list = [n for n, k in enumerate(p.catIds)  if k in setK]
         m_list = [m for n, m in enumerate(p.maxDets) if m in setM]
-        a_list = [n for n, a in enumerate(map(lambda x: tuple(x), p.areaRng)) if a in setA]
+        a_list = [n for n, a in enumerate([tuple(x) for x in p.areaRng]) if a in setA]
         i_list = [n for n, i in enumerate(p.imgIds)  if i in setI]
         I0 = len(_pe.imgIds)
         A0 = len(_pe.areaRng)
@@ -631,7 +631,7 @@ class denseposeCOCOeval:
                         except:
                             pass
                         precision[t,:,k,a,m] = np.array(q)
-        print('Final', np.max(precision), np.min(precision))
+        print(('Final', np.max(precision), np.min(precision)))
         self.eval = {
             'params': p,
             'counts': [T, R, K, A, M],
@@ -640,7 +640,7 @@ class denseposeCOCOeval:
             'recall':   recall,
         }
         toc = time.time()
-        print('DONE (t={:0.2f}s).'.format( toc-tic))
+        print(('DONE (t={:0.2f}s).'.format( toc-tic)))
 
     def summarize(self):
         '''
@@ -681,7 +681,7 @@ class denseposeCOCOeval:
                 mean_s = -1
             else:
                 mean_s = np.mean(s[s>-1])
-            print(iStr.format(titleStr, typeStr, measure, iouStr, areaRng, maxDets, mean_s))
+            print((iStr.format(titleStr, typeStr, measure, iouStr, areaRng, maxDets, mean_s)))
             return mean_s
         def _summarizeDets():
             stats = np.zeros((12,))

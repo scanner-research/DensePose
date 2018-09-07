@@ -5,10 +5,10 @@
 # LICENSE file in the root directory of this source tree.
 ##############################################################################
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 import logging
 import numpy as np
@@ -89,10 +89,10 @@ def test_restore_checkpoint():
     shutil.rmtree(cfg.OUTPUT_DIR)
     _, restored_all_params = get_params(model)
     # Check if all params are loaded correctly
-    for scoped_name, blob in orig_all_params.items():
+    for scoped_name, blob in list(orig_all_params.items()):
         np.testing.assert_array_equal(blob, restored_all_params[scoped_name])
     # Check if broadcast_parameters works
-    for scoped_name, blob in restored_all_params.items():
+    for scoped_name, blob in list(restored_all_params.items()):
         unscoped_name = c2_utils.UnscopeName(scoped_name)
         np.testing.assert_array_equal(blob, orig_gpu_0_params[unscoped_name])
 

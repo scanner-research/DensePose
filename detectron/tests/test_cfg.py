@@ -5,10 +5,10 @@
 # LICENSE file in the root directory of this source tree.
 ##############################################################################
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 import copy
 import tempfile
@@ -120,7 +120,7 @@ class TestCfg(unittest.TestCase):
 
     def test_merge_cfg_from_list(self):
         opts = [
-            'TRAIN.SCALES', '(100, )', 'MODEL.TYPE', u'foobar', 'NUM_GPUS', 2
+            'TRAIN.SCALES', '(100, )', 'MODEL.TYPE', 'foobar', 'NUM_GPUS', 2
         ]
         assert len(cfg.TRAIN.SCALES) > 0
         assert cfg.TRAIN.SCALES[0] != 100

@@ -7,12 +7,10 @@
 
 """Functions for common roidb manipulations."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
 
-from past.builtins import basestring
+
+
+from past.builtins import str
 import logging
 import numpy as np
 
@@ -43,9 +41,9 @@ def combined_roidb_for_training(dataset_names, proposal_files):
         logger.info('Loaded dataset: {:s}'.format(ds.name))
         return roidb
 
-    if isinstance(dataset_names, basestring):
+    if isinstance(dataset_names, str):
         dataset_names = (dataset_names, )
-    if isinstance(proposal_files, basestring):
+    if isinstance(proposal_files, str):
         proposal_files = (proposal_files, )
     if len(proposal_files) == 0:
         proposal_files = (None, ) * len(dataset_names)
@@ -83,7 +81,7 @@ def extend_with_flipped_entries(roidb, dataset):
         assert (boxes[:, 2] >= boxes[:, 0]).all()
         flipped_entry = {}
         dont_copy = ('boxes', 'segms', 'gt_keypoints', 'flipped')
-        for k, v in entry.items():
+        for k, v in list(entry.items()):
             if k not in dont_copy:
                 flipped_entry[k] = v
         flipped_entry['boxes'] = boxes
@@ -120,8 +118,8 @@ def filter_for_training(roidb):
             valid = valid and entry['has_visible_keypoints']
         if cfg.MODEL.BODY_UV_ON and cfg.BODY_UV_RCNN.BODY_UV_IMS:
             # Exclude images with no body uv
-            valid = valid and entry['has_body_uv']        
-	return valid
+            valid = valid and entry['has_body_uv']
+        return valid
 
     num = len(roidb)
     filtered_roidb = [entry for entry in roidb if is_valid(entry)]

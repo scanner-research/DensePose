@@ -19,10 +19,10 @@ of bounding box classification and regression. The box output module converts
 the feature representation into classification and regression predictions.
 """
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 from detectron.core.config import cfg
 from detectron.utils.c2 import const_fill

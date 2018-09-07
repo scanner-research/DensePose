@@ -7,10 +7,10 @@
 
 """Perform inference on one or more datasets."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 import argparse
 import cv2  # NOQA (Must import before importing caffe2 due to bug in cv2)

@@ -9,10 +9,10 @@
 (e.g., .jpg) in a folder.
 """
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 from collections import defaultdict
 import argparse
@@ -109,7 +109,7 @@ def main(args):
                 model, im, None, timers=timers
             )
         logger.info('Inference time: {:.3f}s'.format(time.time() - t))
-        for k, v in timers.items():
+        for k, v in list(timers.items()):
             logger.info(' | {}: {:.3f}s'.format(k, v.average_time))
         if i == 0:
             logger.info(

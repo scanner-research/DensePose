@@ -7,10 +7,10 @@
 
 """Test a RetinaNet network on an image database"""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 import numpy as np
 import logging
@@ -74,7 +74,7 @@ def im_detect_bbox(model, im, timers=None):
         suffix = 'fpn{}'.format(lvl)
         cls_probs.append(core.ScopedName('retnet_cls_prob_{}'.format(suffix)))
         box_preds.append(core.ScopedName('retnet_bbox_pred_{}'.format(suffix)))
-    for k, v in inputs.items():
+    for k, v in list(inputs.items()):
         workspace.FeedBlob(core.ScopedName(k), v.astype(np.float32, copy=False))
 
     workspace.RunNet(model.net.Proto().name)
@@ -153,7 +153,7 @@ def im_detect_bbox(model, im, timers=None):
     # Combine predictions across all levels and retain the top scoring by class
     timers['misc_bbox'].tic()
     detections = []
-    for cls, boxes in boxes_all.items():
+    for cls, boxes in list(boxes_all.items()):
         cls_dets = np.vstack(boxes).astype(dtype=np.float32)
         # do class specific nms here
         keep = box_utils.nms(cls_dets, cfg.TEST.NMS)

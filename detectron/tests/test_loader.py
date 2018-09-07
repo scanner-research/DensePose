@@ -5,10 +5,10 @@
 # LICENSE file in the root directory of this source tree.
 ##############################################################################
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 import numpy as np
 import logging
@@ -79,7 +79,7 @@ def run_net(net):
 class TestRoIDataLoader(unittest.TestCase):
     @mock.patch(
         'detectron.roi_data.loader.get_minibatch_blob_names',
-        return_value=[u'data']
+        return_value=['data']
     )
     @mock.patch(
         'detectron.roi_data.loader.get_minibatch',

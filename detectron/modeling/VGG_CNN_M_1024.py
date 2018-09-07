@@ -7,10 +7,10 @@
 
 """VGG_CNN_M_1024 from https://arxiv.org/abs/1405.3531."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 from detectron.core.config import cfg
 

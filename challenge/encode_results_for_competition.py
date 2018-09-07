@@ -37,7 +37,7 @@ def _encodePngData(arr):
     @return Base64-encoded string containing PNG-compressed data
     """
     from PIL import Image
-    import StringIO
+    import io
     assert len(arr.shape) == 3, "Expected a 3D array as an input," \
             " got a {0}D array".format(len(arr.shape))
     assert arr.shape[0] == 3, "Expected first array dimension of size 3," \
@@ -46,7 +46,7 @@ def _encodePngData(arr):
             " got {0}".format(arr.dtype)
     data = np.moveaxis(arr, 0, -1)
     im = Image.fromarray(data)
-    fStream = StringIO.StringIO()
+    fStream = io.StringIO()
     im.save(fStream, format='png', optimize=True)
     s = fStream.getvalue()
     return s.encode('base64')
@@ -64,7 +64,7 @@ def _statusStr(i, dataLen):
 
 def _savePngJson(hInPklResultsFile, hOutJsonPackedFile):
     from PIL import Image
-    import StringIO
+    import io
     dataFPickle = pickle.load(hInPklResultsFile)
     statusStr = ''
     dataLen = len(dataFPickle)
@@ -84,18 +84,18 @@ def main():
     if os.path.exists(args.outJsonPackedFile):
         answer = ''
         while not answer in kAnswers:
-            answer = raw_input('File "{0}" already exists, overwrite? [y/n] '
+            answer = input('File "{0}" already exists, overwrite? [y/n] '
                 .format(args.outJsonPackedFile))
         if answer in kNegativeAnswers:
             sys.exit(1)
 
     with open(args.inPklResultsFile, 'rb') as hIn, \
             open(args.outJsonPackedFile, 'w') as hOut:
-        print('Encoding png: {0}'.format(args.outJsonPackedFile))
+        print(('Encoding png: {0}'.format(args.outJsonPackedFile)))
         start = time.clock()
         _savePngJson(hIn, hOut)
         end = time.clock()
-        print('Finished encoding png, time {0}s'.format(end - start))
+        print(('Finished encoding png, time {0}s'.format(end - start)))
 
 if __name__ == "__main__":
     main()

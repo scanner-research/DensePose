@@ -34,7 +34,7 @@ class DensePoseMethods:
         U_sym= np.zeros(U.shape)
         V_sym= np.zeros(V.shape)
         ###
-        for i in ( range(24)):
+        for i in ( list(range(24))):
             if i+1 in I:
                 Labels_sym[I == (i+1)] = self.Index_Symmetry_List[i]
                 jj = np.where(I == (i+1))
@@ -48,7 +48,7 @@ class DensePoseMethods:
         Mask_flip = np.fliplr(Mask)
         Mask_flipped = np.zeros(Mask.shape)
         #
-        for i in ( range(14)):
+        for i in ( list(range(14))):
             Mask_flipped[Mask_flip == (i+1)] = self.SemanticMaskSymmetries[i+1]
         #
         [y_max , x_max ] = Mask_flip.shape

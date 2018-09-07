@@ -15,10 +15,10 @@
 
 """Functions for RPN proposal generation."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 import cv2
 import datetime
@@ -203,7 +203,7 @@ def im_proposals(model, im):
     inputs = {}
     inputs['data'], im_scale, inputs['im_info'] = \
         blob_utils.get_image_blob(im, cfg.TEST.SCALE, cfg.TEST.MAX_SIZE)
-    for k, v in inputs.items():
+    for k, v in list(inputs.items()):
         workspace.FeedBlob(core.ScopedName(k), v.astype(np.float32, copy=False))
     workspace.RunNet(model.net.Proto().name)
 

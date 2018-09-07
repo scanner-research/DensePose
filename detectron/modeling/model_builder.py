@@ -22,10 +22,10 @@ A given model is made by combining many basic components. The result is flexible
 though somewhat complex to understand at first.
 """
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 import copy
 import importlib
@@ -223,7 +223,7 @@ def build_generic_detection_model(
 
         if model.train:
             loss_gradients = {}
-            for lg in head_loss_gradients.values():
+            for lg in list(head_loss_gradients.values()):
                 if lg is not None:
                     loss_gradients.update(lg)
             return loss_gradients

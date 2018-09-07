@@ -4,10 +4,10 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 #
 from scipy.io import loadmat
 import copy
@@ -184,7 +184,7 @@ def add_body_uv_rcnn_blobs(blobs, sampled_boxes, roidb, im_scale, batch_idx):
     V_points = np.tile( V_points , [1,K+1] )
     Uv_Weight_Points = np.zeros(U_points.shape)
     #
-    for jjj in xrange(1,K+1):
+    for jjj in range(1,K+1):
         Uv_Weight_Points[ : , jjj * I_points.shape[1]  : (jjj+1) * I_points.shape[1] ] = ( I_points == jjj ).astype(np.float32)
     #
     ################

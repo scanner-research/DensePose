@@ -7,13 +7,13 @@
 
 """Script for visualizing results saved in a detections.pkl file."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 import argparse
-import cPickle as pickle
+import pickle as pickle
 import cv2
 import os
 import sys

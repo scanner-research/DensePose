@@ -14,10 +14,10 @@
 #   DATA_LOADER.MINIBATCH_QUEUE_SIZE 64 \
 #   DATA_LOADER.BLOBS_QUEUE_CAPACITY 8
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 import argparse
 import logging

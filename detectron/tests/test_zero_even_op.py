@@ -5,10 +5,10 @@
 # LICENSE file in the root directory of this source tree.
 ###############################
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 import numpy as np
 import unittest
@@ -39,7 +39,7 @@ class ZeroEvenOpTest(unittest.TestCase):
 
     def test_throws_on_non_1D_arrays(self):
         X = np.zeros((2, 2), dtype=np.float32)
-        with self.assertRaisesRegexp(RuntimeError, 'X\.ndim\(\) == 1'):
+        with self.assertRaisesRegex(RuntimeError, 'X\.ndim\(\) == 1'):
             self._run_zero_even_op(X)
 
     def test_handles_empty_arrays(self):
@@ -76,7 +76,7 @@ class ZeroEvenOpTest(unittest.TestCase):
 
     def test_gpu_throws_on_non_1D_arrays(self):
         X = np.zeros((2, 2), dtype=np.float32)
-        with self.assertRaisesRegexp(RuntimeError, 'X\.ndim\(\) == 1'):
+        with self.assertRaisesRegex(RuntimeError, 'X\.ndim\(\) == 1'):
             self._run_zero_even_op_gpu(X)
 
     def test_gpu_handles_empty_arrays(self):

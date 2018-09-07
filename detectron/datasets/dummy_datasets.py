@@ -9,10 +9,10 @@ cases, like getting all classes in a dataset. This exists so that demos can be
 run without requiring users to download/install datasets first.
 """
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 from detectron.utils.collections import AttrDict
 

@@ -7,10 +7,10 @@
 
 """Test a Detectron network on an imdb (image database)."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 from collections import defaultdict
 import cv2
@@ -237,7 +237,7 @@ def test_net(
         empty_results(num_classes, num_images)
     timers = defaultdict(Timer)
     for i, entry in enumerate(roidb):
-        if 'has_no_densepose' in entry.keys():
+        if 'has_no_densepose' in list(entry.keys()):
             pass
         else:
             if cfg.TEST.PRECOMPUTED_PROPOSALS:
@@ -268,7 +268,7 @@ def test_net(
                 extend_results(i, all_bodys, cls_bodys_i)
 
         if i % 10 == 0:  # Reduce log file size
-            ave_total_time = np.sum([t.average_time for t in timers.values()])
+            ave_total_time = np.sum([t.average_time for t in list(timers.values())])
             eta_seconds = ave_total_time * (num_images - i - 1)
             eta = str(datetime.timedelta(seconds=int(eta_seconds)))
             det_time = (

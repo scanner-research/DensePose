@@ -7,10 +7,10 @@
 
 """Defines DetectionModelHelper, the class that represents a Detectron model."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 import numpy as np
 import logging
@@ -356,7 +356,7 @@ class DetectionModelHelper(cnn.CNNModelHelper):
         kernel = np.zeros(
             (dim_in, dim_out, kernel_size, kernel_size), dtype=np.float32
         )
-        kernel[range(dim_out), range(dim_in), :, :] = bil_filt
+        kernel[list(range(dim_out)), list(range(dim_in)), :, :] = bil_filt
 
         blob = self.ConvTranspose(
             blob_in,

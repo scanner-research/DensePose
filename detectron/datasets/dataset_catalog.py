@@ -7,10 +7,10 @@
 
 """Collection of available datasets."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 import os
 
@@ -236,12 +236,12 @@ _DATASETS = {
 
 def datasets():
     """Retrieve the list of available dataset names."""
-    return _DATASETS.keys()
+    return list(_DATASETS.keys())
 
 
 def contains(name):
     """Determine if the dataset is in the catalog."""
-    return name in _DATASETS.keys()
+    return name in list(_DATASETS.keys())
 
 
 def get_im_dir(name):

@@ -13,6 +13,9 @@ RUN git clone https://github.com/facebookresearch/densepose /densepose
 # Install Python dependencies
 RUN pip install -r /densepose/requirements.txt
 
+# Fix for pyyaml
+RUN pip install pyyaml==3.12
+
 # Install the COCO API
 RUN git clone https://github.com/cocodataset/cocoapi.git /cocoapi
 WORKDIR /cocoapi/PythonAPI
@@ -26,3 +29,7 @@ RUN make
 
 # [Optional] Build custom ops
 RUN make ops
+
+# Download UV data
+RUN apt-get update && apt-get install -y --no-install-recommends wget tmux
+RUN cd DensePoseData && bash get_densepose_uv.sh

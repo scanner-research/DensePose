@@ -1,6 +1,6 @@
-# nvidia-docker build -f docker/Dockerfile -t densepose:py2 .
+nvidia-docker build -f docker/Dockerfile -t densepose:py35 .
 
-nvidia-docker run -ti --ipc=host -v $(pwd):/Projects --workdir=/Projects -p 8888:8888 densepose:py2 /bin/bash
+nvidia-docker run -ti --ipc=host -v $(pwd):/DensePose-py2 --workdir=/DensePose-py2 -p 8888:8888 densepose:py35 /bin/bash
 
 #docker login
 

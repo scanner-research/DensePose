@@ -5,7 +5,8 @@ cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 # the standard Caffe2 installation. If you encounter problems with finding
 # the Caffe2 package, make sure you have run `make install` when installing
 # Caffe2 (`make install` populates your share/cmake/Caffe2).
-find_package(Caffe2 REQUIRED)
+#find_package(Caffe2 REQUIRED)
+set(Caffe2_DIR "/usr/local/lib/python3.5/dist-packages/torch/share/cmake/Caffe2/")
 
 if (${CAFFE2_VERSION} VERSION_LESS 0.8.2)
   # Pre-0.8.2 caffe2 does not have proper interface libraries set up, so we

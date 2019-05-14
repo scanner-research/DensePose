@@ -8,15 +8,15 @@ cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 #find_package(Caffe2 REQUIRED)
 set(Caffe2_DIR "/usr/local/lib/python3.5/dist-packages/torch/share/cmake/Caffe2/")
 
-if (${CAFFE2_VERSION} VERSION_LESS 0.8.2)
-  # Pre-0.8.2 caffe2 does not have proper interface libraries set up, so we
-  # will rely on the old path.
-  message(WARNING
-      "You are using an older version of Caffe2 (version " ${CAFFE2_VERSION}
-      "). Please consider moving to a newer version.")
-  include(cmake/legacy/legacymake.cmake)
-  return()
-endif()
+#if (${CAFFE2_VERSION} VERSION_LESS 0.8.2)
+#  # Pre-0.8.2 caffe2 does not have proper interface libraries set up, so we
+#  # will rely on the old path.
+#  message(WARNING
+#      "You are using an older version of Caffe2 (version " ${CAFFE2_VERSION}
+#      "). Please consider moving to a newer version.")
+#  include(cmake/legacy/legacymake.cmake)
+#  return()
+#endif()
 
 # Add compiler flags.
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11")

@@ -75,6 +75,13 @@ def parse_args():
         nargs=2
     )
     parser.add_argument(
+        '--gpu-id',
+        dest='gpu_id',
+        help='specific gpu to run on',
+        default=0,
+        type=int
+    )
+    parser.add_argument(
         'opts',
         help='See detectron/core/config.py for all options',
         default=None,
@@ -109,4 +116,5 @@ if __name__ == '__main__':
         ind_range=args.range,
         multi_gpu_testing=args.multi_gpu_testing,
         check_expected_results=True,
+        gpu_id=args.gpu_id
     )

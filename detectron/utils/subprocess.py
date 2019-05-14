@@ -56,7 +56,8 @@ def process_in_parallel(
         start = subinds[i][0]
         end = subinds[i][-1] + 1
         subprocess_env['CUDA_VISIBLE_DEVICES'] = str(gpu_ind)
-        cmd = '{binary} --range {start} {end} --cfg {cfg_file} NUM_GPUS 1 {opts}'
+        cmd = 'python2 /densepose/tools/test_net.py --range {start} {end} --cfg {cfg_file} NUM_GPUS 1 {opts}'
+        # cmd = 'python2 /densepose/tools/test_net.py --range {start} {end} --cfg {cfg_file} --gpu-id {gpu_ind} NUM_GPUS 1 {opts}'
         cmd = cmd.format(
             binary=shlex_quote(binary),
             start=int(start),

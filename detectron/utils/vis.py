@@ -147,13 +147,13 @@ def vis_keypoints(img, kps, kp_thresh=2, alpha=0.7):
     # Draw mid shoulder / mid hip first for better visualization.
     mid_shoulder = (
         kps[:2, dataset_keypoints.index('right_shoulder')] +
-        kps[:2, dataset_keypoints.index('left_shoulder')]) / 2.0
+        kps[:2, dataset_keypoints.index('left_shoulder')]) // 2
     sc_mid_shoulder = np.minimum(
         kps[2, dataset_keypoints.index('right_shoulder')],
         kps[2, dataset_keypoints.index('left_shoulder')])
     mid_hip = (
         kps[:2, dataset_keypoints.index('right_hip')] +
-        kps[:2, dataset_keypoints.index('left_hip')]) / 2.0
+        kps[:2, dataset_keypoints.index('left_hip')]) // 2
     sc_mid_hip = np.minimum(
         kps[2, dataset_keypoints.index('right_hip')],
         kps[2, dataset_keypoints.index('left_hip')])
@@ -161,11 +161,11 @@ def vis_keypoints(img, kps, kp_thresh=2, alpha=0.7):
     if sc_mid_shoulder > kp_thresh and kps[2, nose_idx] > kp_thresh:
         cv2.line(
             kp_mask, tuple(mid_shoulder), tuple(kps[:2, nose_idx]),
-            color=colors[len(kp_lines)], thickness=2, lineType=cv2.LINE_AA)
+            color=colors[len(kp_lines)], thickness=4, lineType=cv2.LINE_AA)
     if sc_mid_shoulder > kp_thresh and sc_mid_hip > kp_thresh:
         cv2.line(
             kp_mask, tuple(mid_shoulder), tuple(mid_hip),
-            color=colors[len(kp_lines) + 1], thickness=2, lineType=cv2.LINE_AA)
+            color=colors[len(kp_lines) + 1], thickness=4, lineType=cv2.LINE_AA)
 
     # Draw the keypoints.
     for l in range(len(kp_lines)):
@@ -176,15 +176,15 @@ def vis_keypoints(img, kps, kp_thresh=2, alpha=0.7):
         if kps[2, i1] > kp_thresh and kps[2, i2] > kp_thresh:
             cv2.line(
                 kp_mask, p1, p2,
-                color=colors[l], thickness=2, lineType=cv2.LINE_AA)
+                color=colors[l], thickness=4, lineType=cv2.LINE_AA)
         if kps[2, i1] > kp_thresh:
             cv2.circle(
                 kp_mask, p1,
-                radius=3, color=colors[l], thickness=-1, lineType=cv2.LINE_AA)
+                radius=4, color=colors[l], thickness=-1, lineType=cv2.LINE_AA)
         if kps[2, i2] > kp_thresh:
             cv2.circle(
                 kp_mask, p2,
-                radius=3, color=colors[l], thickness=-1, lineType=cv2.LINE_AA)
+                radius=4, color=colors[l], thickness=-1, lineType=cv2.LINE_AA)
 
     # Blend the keypoints.
     return cv2.addWeighted(img, 1.0 - alpha, kp_mask, alpha, 0)

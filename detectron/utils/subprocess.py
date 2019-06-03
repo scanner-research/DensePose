@@ -20,6 +20,7 @@ import yaml
 import numpy as np
 import subprocess
 import pickle as pickle
+from io import IOBase
 from six.moves import shlex_quote
 
 from detectron.core.config import cfg
@@ -56,7 +57,8 @@ def process_in_parallel(
         start = subinds[i][0]
         end = subinds[i][-1] + 1
         subprocess_env['CUDA_VISIBLE_DEVICES'] = str(gpu_ind)
-        cmd = '{binary} --range {start} {end} --cfg {cfg_file} NUM_GPUS 1 {opts}'
+        cmd = 'python3 /opt/DensePose/tools/test_net.py --range {start} {end} --cfg {cfg_file} NUM_GPUS 1 {opts}'
+#         cmd = 'python3 /opt/DensePose/tools/test_net.py --range {start} {end} --cfg {cfg_file} --gpu-id {gpu_ind} NUM_GPUS 1 {opts}'
         cmd = cmd.format(
             binary=shlex_quote(binary),
             start=int(start),
@@ -85,7 +87,7 @@ def process_in_parallel(
     outputs = []
     for i, p, start, end, subprocess_stdout in processes:
         log_subprocess_output(i, p, output_dir, tag, start, end)
-        if isinstance(subprocess_stdout, file):  # NOQA (Python 2 for now)
+        if isinstance(subprocess_stdout, IOBase):
             subprocess_stdout.close()
         range_file = os.path.join(
             output_dir, '%s_range_%s_%s.pkl' % (tag, start, end)

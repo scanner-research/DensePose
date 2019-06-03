@@ -27,10 +27,11 @@ from detectron.core.config import merge_cfg_from_file
 from detectron.core.config import merge_cfg_from_list
 from detectron.core.test_engine import run_inference
 from detectron.utils.logging import setup_logging
+from detectron.utils.io import cache_url
 import detectron.utils.c2 as c2_utils
 
 c2_utils.import_detectron_ops()
-c2_utils.import_custom_ops()
+#c2_utils.import_custom_ops()
 
 
 #utils.c2.import_custom_ops()
@@ -75,6 +76,13 @@ def parse_args():
         nargs=2
     )
     parser.add_argument(
+        '--gpu-id',
+        dest='gpu_id',
+        help='specific gpu to run on',
+        default=0,
+        type=int
+    )
+    parser.add_argument(
         'opts',
         help='See detectron/core/config.py for all options',
         default=None,
@@ -96,7 +104,8 @@ if __name__ == '__main__':
         merge_cfg_from_file(args.cfg_file)
     if args.opts is not None:
         merge_cfg_from_list(args.opts)
-    assert_and_infer_cfg()
+    cfg.TEST.WEIGHTS = cache_url(cfg.TEST.WEIGHTS, cfg.DOWNLOAD_CACHE)
+    assert_and_infer_cfg(cache_urls=False)
     logger.info('Testing with config:')
     logger.info(pprint.pformat(cfg))
 
@@ -109,4 +118,5 @@ if __name__ == '__main__':
         ind_range=args.range,
         multi_gpu_testing=args.multi_gpu_testing,
         check_expected_results=True,
+        gpu_id=args.gpu_id
     )

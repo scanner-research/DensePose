@@ -120,7 +120,7 @@ def vis_class(img, pos, class_str, font_scale=0.35):
     return img
 
 
-def vis_bbox(img, bbox, thick=1):
+def vis_bbox(img, bbox, thick=4):
     """Visualizes a bounding box."""
     (x0, y0, w, h) = bbox
     x1, y1 = int(x0 + w), int(y0 + h)
